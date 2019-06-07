@@ -1,4 +1,5 @@
 Function Format-NmapScan {
+    [Cmdletbinding()]
     param (
     [parameter(Mandatory = $true, Position = 0,
         Helpmessage = "Volledige command voor port outputting",
