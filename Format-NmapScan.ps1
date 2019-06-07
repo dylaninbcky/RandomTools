@@ -1,12 +1,11 @@
 Function Format-NmapScan {
-    [Cmdletbinding()]
     param (
     [parameter(Mandatory = $true, Position = 0,
         Helpmessage = "Volledige command voor port outputting",
         ValueFromPipeline)][scriptblock]$Command
     )
+    BEGIN {$stringcommand  = $Command.ToString().Trim() + " -OutFormat HashTable"}
     PROCESS {
-        $stringcommand  = $Command.ToString().Trim() + " -OutFormat HashTable"
         $results = Invoke-Expression -Command $stringcommand
         $output = @()
         for ($i = 0; $i -lt $results.host.ports.port.portid.Length; $i++) {
@@ -16,10 +15,13 @@ Function Format-NmapScan {
                 Target   = $results.host.address.addr  
             }
         }
-      return $output
+    }
+    End {
+        Write-host "Scan completed, results as followed: " -ForegroundColor Green
+        return $output
     }
 }
 
-Format-NmapScan -Command {
-    Invoke-Nmap -computerName www.google.com
+Format-NmapScan {
+    Invoke-Nmap nas.dberghuis.nl -All
 }
