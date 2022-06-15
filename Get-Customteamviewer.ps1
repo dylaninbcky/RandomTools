@@ -1,5 +1,5 @@
 $downloadpath = "$ENV:HOMEPATH\Desktop"
-$URL = "https://get.teamviewer.com/u6pkngy"
+$URL = "https://get.teamviewer.com/xxxx
 Function Start-TeamViewerQSDownload () {
     $iebrowser = New-Object -ComObject InternetExplorer.Application
     $iebrowser.Navigate($URL)
